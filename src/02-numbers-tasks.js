@@ -108,13 +108,10 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors() {
+  // const firstAngle = Math.atan2(x1, y1);
+  // const secondAngle = Math.atan2(x2, y2);
+  // return Math.abs(firstAngle - secondAngle);
   throw new Error('Not implemented');
-  // const a = x1 * y1 + x2 * y2;
-  // const c = Math.sqrt(x1 * x1 + x2 * x2);
-  // const b = Math.sqrt(y1 * y1 + y2 * y2);
-  // const f = a / (c * b);
-  // return Math.acos(f);
-  // x1, y1, x2, y2;
 }
 
 /**
@@ -203,8 +200,14 @@ function roundToPowerOfTen(num, pow) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(num) {
+  if (num < 2) return false;
+  for (let i = 2; i <= Math.sqrt(num); i += 1) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -222,8 +225,24 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  let a;
+  if (typeof value === 'number') {
+    a = value;
+  } else if (typeof value === 'string') {
+    if (!Number.isNaN(parseInt(value, 10))) {
+      a = parseInt(value, 10);
+    } else {
+      a = def;
+    }
+  } else if (value === null) {
+    a = def;
+  } else if (typeof value === 'object') {
+    a = +value;
+  } else {
+    a = def;
+  }
+  return a;
 }
 
 module.exports = {
