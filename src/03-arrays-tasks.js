@@ -277,8 +277,12 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const newArrr = arr.reduce((accumulator, currentValue, index) => {
+    accumulator.push(...Array(index + 1).fill(currentValue));
+    return accumulator;
+  }, []);
+  return newArrr;
 }
 
 /**
@@ -442,8 +446,10 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  arr.sort((a, b) => (a.city > b.city ? -1 : 1));
+  arr.sort((a, b) => (a.country > b.country ? 1 : -1));
+  return arr;
 }
 
 /**
@@ -464,8 +470,16 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  // const arr = [...Array(n)].map((e, i, arr) =>
+  //   arr.map((el, index) => (index === i ? 1 : 0)),
+  // );
+  // console.log(arr);
+
+  const arr = Array(n)
+    .fill(Array(n).fill())
+    .map((x, i) => x.map((y, j) => (i === j ? 1 : 0)));
+  return arr;
 }
 
 /**
@@ -481,8 +495,10 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const n = end - start + 1;
+  const arr = Array.from({ length: n }, (v, k) => start + k);
+  return arr;
 }
 
 /**
