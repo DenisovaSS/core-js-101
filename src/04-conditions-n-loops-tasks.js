@@ -196,8 +196,14 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    const c = str.charAt(i);
+    if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
+      return c;
+    }
+  }
+  return null;
 }
 
 /**
@@ -222,8 +228,11 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const f = isStartIncluded ? '[' : '(';
+  const l = isEndIncluded ? ']' : ')';
+  const str = a - b > 0 ? `${f}${b}, ${a}${l}` : `${f}${a}, ${b}${l}`;
+  return str;
 }
 
 /**
@@ -238,8 +247,12 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let revNum = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    revNum += str[i];
+  }
+  return revNum;
 }
 
 /**
@@ -254,8 +267,13 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const stringNum = Math.abs(num).toString();
+  let revNum = '';
+  for (let i = stringNum.length - 1; i >= 0; i -= 1) {
+    revNum += stringNum[i];
+  }
+  return +revNum;
 }
 
 /**
@@ -278,8 +296,32 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let arr = 0;
+  let b;
+  let a;
+  const lastEl = +Math.abs(ccn).toString().slice(-1);
+  const stringNum = Math.abs(ccn).toString().slice(0, -1);
+  let revNum = '';
+  for (let i = stringNum.length - 1; i >= 0; i -= 1) {
+    revNum += stringNum[i];
+  }
+  for (let j = 0; j < revNum.length; j += 1) {
+    if (j % 2 === 0 || j === 0) {
+      b = +revNum[j] * 2;
+      if (b > 9) {
+        a = b - 9;
+      } else {
+        a = b;
+      }
+    } else {
+      a = +revNum[j];
+    }
+
+    arr += a;
+  }
+  const t = arr % 10 ? 10 - (arr % 10) : arr % 10;
+  return lastEl === t;
 }
 
 /**
