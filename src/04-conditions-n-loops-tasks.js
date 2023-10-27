@@ -369,8 +369,25 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const openBr = '{[(<';
+  const closeBr = '}])>';
+  const stack = [];
+  let result = true;
+  for (let i = 0; i < str.length; i += 1) {
+    const carrentSymbol = str[i];
+    const topElement = stack[stack.length - 1];
+    if (openBr.includes(carrentSymbol)) {
+      stack.push(carrentSymbol);
+    } else if (stack.length === 0) {
+      result = false;
+    } else if (openBr[closeBr.indexOf(carrentSymbol)] === topElement) {
+      stack.pop();
+    } else {
+      result = false;
+    }
+  }
+  return stack.length === 0 && result;
 }
 
 /**
@@ -465,10 +482,16 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(p) {
+  const myArr = p.map((e) => e.join(''));
+  const myAC = p.map((el, i, arr) => `${arr[0][i]}${arr[1][i]}${arr[2][i]}`);
+  const myArrXr = p.map((el, i, arr) => `${arr[i][i]}`).join('');
+  const myArrXl = `${p[0][2]}${p[1][1]}${p[2][0]}`;
+  const result = myArr.concat(myAC, myArrXl, myArrXr);
+  if (result.includes('XXX')) return 'X';
+  if (result.includes('000')) return '0';
+  return undefined;
 }
-
 module.exports = {
   getFizzBuzz,
   getFactorial,
